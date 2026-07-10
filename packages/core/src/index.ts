@@ -1,0 +1,12 @@
+export * from "./types.js";
+export { scoreTask } from "./scorer.js";
+export { DEFAULT_CONFIG, configDir, loadConfig, saveConfig } from "./config.js";
+export { DecisionLog, taskHash, taskPreview } from "./log.js";
+export { findOnPath } from "./path-lookup.js";
+export { ALL_ADAPTERS, getAdapter, claudeCodeAdapter, resetDetectionCache } from "./adapters/index.js";
+export { route } from "./router.js";
+export type { RouteOptions } from "./router.js";
+export { GOLDEN } from "./golden.js";
+export type { GoldenCase } from "./golden.js";
+export { runBench, formatBench } from "./bench.js";
+export type { BenchResult } from "./bench.js";

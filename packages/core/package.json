@@ -1,0 +1,22 @@
+{
+  "name": "switchtower",
+  "version": "0.1.0",
+  "description": "Routes each coding task to the cheapest capable model in the agent CLIs you already have.",
+  "license": "MIT",
+  "type": "module",
+  "engines": { "node": ">=20" },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "bin": { "switchtower": "./dist/cli.js" },
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "vitest run",
+    "bench": "node dist/cli.js bench"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.6.0",
+    "vitest": "^3.0.0"
+  }
+}
