@@ -1,0 +1,283 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  background: #101418;
+  color: #d8dee9;
+  font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  font-size: 13px;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  background: #161b22;
+  border-bottom: 1px solid #232a33;
+  -webkit-app-region: drag;
+}
+
+.topbar input,
+.topbar button,
+.topbar select,
+.routing-chip {
+  -webkit-app-region: no-drag;
+}
+
+.brand {
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: #8ab4f8;
+  padding-left: 68px;
+}
+
+.prompt-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+}
+
+.prompt-input {
+  flex: 1;
+  min-width: 120px;
+  padding: 7px 10px;
+  border: 1px solid #2c3540;
+  border-radius: 6px;
+  background: #0d1117;
+  color: #d8dee9;
+  outline: none;
+}
+
+.prompt-input:focus {
+  border-color: #8ab4f8;
+}
+
+.routing-chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  max-width: 46%;
+  padding: 4px 8px;
+  border-radius: 6px;
+  border: 1px solid #2c3540;
+  background: #0d1117;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.routing-chip-idle {
+  color: #5c6773;
+}
+
+.chip-tier {
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+}
+
+.tier-easy .chip-tier {
+  color: #7ee787;
+}
+
+.tier-medium .chip-tier {
+  color: #f2cc60;
+}
+
+.tier-hard .chip-tier {
+  color: #ff7b72;
+}
+
+.chip-agent {
+  color: #9aa5b1;
+}
+
+.chip-model {
+  background: #161b22;
+  color: #d8dee9;
+  border: 1px solid #2c3540;
+  border-radius: 4px;
+  padding: 2px 4px;
+}
+
+.chip-overridden {
+  color: #f2cc60;
+}
+
+.chip-reason {
+  color: #5c6773;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.chip-missing {
+  color: #ff7b72;
+}
+
+.launch-button {
+  padding: 7px 14px;
+  border: none;
+  border-radius: 6px;
+  background: #1f6feb;
+  color: #ffffff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.launch-button:disabled {
+  background: #21262d;
+  color: #5c6773;
+  cursor: default;
+}
+
+.ghost-button {
+  padding: 7px 12px;
+  border: 1px solid #2c3540;
+  border-radius: 6px;
+  background: transparent;
+  color: #9aa5b1;
+  cursor: pointer;
+}
+
+.ghost-button:hover {
+  color: #d8dee9;
+  border-color: #8ab4f8;
+}
+
+.tabs {
+  display: flex;
+  gap: 2px;
+  padding: 6px 12px 0;
+  background: #101418;
+  overflow-x: auto;
+}
+
+.tab {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  border-radius: 6px 6px 0 0;
+  background: #161b22;
+  color: #9aa5b1;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.tab-active {
+  background: #0d1117;
+  color: #d8dee9;
+  border: 1px solid #232a33;
+  border-bottom: none;
+}
+
+.tab-exited .tab-title {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+.tab-close {
+  border: none;
+  background: transparent;
+  color: #5c6773;
+  cursor: pointer;
+  font-size: 11px;
+}
+
+.tab-close:hover {
+  color: #ff7b72;
+}
+
+.panes {
+  flex: 1;
+  position: relative;
+  background: #0d1117;
+  border-top: 1px solid #232a33;
+  min-height: 0;
+}
+
+.terminal-pane {
+  position: absolute;
+  inset: 8px;
+}
+
+.terminal-hidden {
+  visibility: hidden;
+}
+
+.empty-state {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: #5c6773;
+}
+
+.empty-hint {
+  font-size: 12px;
+}
+
+.onboarding {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 24px;
+  text-align: center;
+}
+
+.onboarding h1 {
+  font-size: 18px;
+  color: #d8dee9;
+}
+
+.onboarding p {
+  max-width: 480px;
+  color: #9aa5b1;
+}
+
+.agent-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.agent-list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.agent-name {
+  font-weight: 600;
+}
+
+.agent-hint {
+  background: #161b22;
+  border: 1px solid #2c3540;
+  border-radius: 4px;
+  padding: 3px 8px;
+  color: #7ee787;
+  font-family: Menlo, Consolas, monospace;
+  font-size: 12px;
+}
