@@ -8,7 +8,7 @@ const appRoot = join(__dirname, "..");
 const fixtures = join(__dirname, "fixtures");
 
 test("launches, routes a task with the stub agent, and spawns a session", async () => {
-  const stateDir = mkdtempSync(join(tmpdir(), "swt-smoke-"));
+  const stateDir = mkdtempSync(join(tmpdir(), "rm-smoke-"));
   const app = await electron.launch({
     args: [appRoot],
     env: {
