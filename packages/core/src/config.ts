@@ -1,9 +1,9 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { homedir } from "node:os";
 import { join } from "node:path";
-import type { SwitchtowerConfig, Tier, TierTarget } from "./types.js";
+import type { RightModelConfig, Tier, TierTarget } from "./types.js";
 
-export const DEFAULT_CONFIG: SwitchtowerConfig = {
+export const DEFAULT_CONFIG: RightModelConfig = {
   mode: "heuristic",
   tiers: {
     easy: { agent: "claude-code", model: "haiku" },
@@ -13,22 +13,22 @@ export const DEFAULT_CONFIG: SwitchtowerConfig = {
 };
 
 export function configDir(): string {
-  if (process.env.SWITCHTOWER_DIR) return process.env.SWITCHTOWER_DIR;
+  if (process.env.RIGHTMODEL_DIR) return process.env.RIGHTMODEL_DIR;
   if (process.platform === "win32" && process.env.APPDATA) {
-    return join(process.env.APPDATA, "switchtower");
+    return join(process.env.APPDATA, "rightmodel");
   }
-  return join(homedir(), ".config", "switchtower");
+  return join(homedir(), ".config", "rightmodel");
 }
 
 function configPath(): string {
   return join(configDir(), "config.json");
 }
 
-export function loadConfig(): { config: SwitchtowerConfig; warning?: string } {
+export function loadConfig(): { config: RightModelConfig; warning?: string } {
   const path = configPath();
   if (!existsSync(path)) return { config: structuredClone(DEFAULT_CONFIG) };
   try {
-    const raw = JSON.parse(readFileSync(path, "utf8")) as Partial<SwitchtowerConfig>;
+    const raw = JSON.parse(readFileSync(path, "utf8")) as Partial<RightModelConfig>;
     const tiers = {} as Record<Tier, TierTarget>;
     for (const tier of ["easy", "medium", "hard"] as const) {
       const t = raw.tiers?.[tier];
@@ -47,7 +47,7 @@ export function loadConfig(): { config: SwitchtowerConfig; warning?: string } {
   }
 }
 
-export function saveConfig(config: SwitchtowerConfig): void {
+export function saveConfig(config: RightModelConfig): void {
   mkdirSync(configDir(), { recursive: true });
   writeFileSync(configPath(), `${JSON.stringify(config, null, 2)}\n`, "utf8");
 }

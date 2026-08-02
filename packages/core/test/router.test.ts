@@ -9,10 +9,10 @@ import { route } from "../src/router.js";
 let dir: string;
 beforeEach(() => {
   dir = mkdtempSync(join(tmpdir(), "swt-router-"));
-  process.env.SWITCHTOWER_DIR = dir;
+  process.env.RIGHTMODEL_DIR = dir;
 });
 afterEach(() => {
-  delete process.env.SWITCHTOWER_DIR;
+  delete process.env.RIGHTMODEL_DIR;
   rmSync(dir, { recursive: true, force: true });
 });
 

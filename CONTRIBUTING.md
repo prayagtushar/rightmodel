@@ -1,4 +1,4 @@
-# Contributing to Switchtower
+# Contributing to RightModel
 
 Thanks for taking a look. Bug reports, adapters for new agent CLIs, and golden set additions are all welcome.
 
@@ -7,8 +7,8 @@ Thanks for taking a look. Bug reports, adapters for new agent CLIs, and golden s
 Requirements: Node 20 or newer, and pnpm.
 
 ```
-git clone https://github.com/prayagtushar/switchtower.git
-cd switchtower
+git clone https://github.com/prayagtushar/rightmodel.git
+cd rightmodel
 pnpm install
 ```
 
@@ -27,9 +27,9 @@ apps/desktop     Electron shell: prompt bar, routing chip, pty terminal tabs
 
 ```
 pnpm test                                  everything
-pnpm -F switchtower test                   core: typecheck plus 44 vitest tests
-pnpm -F @switchtower/desktop typecheck     desktop types
-pnpm -F @switchtower/desktop test          desktop: builds, then Playwright against a stub agent
+pnpm -F rightmodel test                   core: typecheck plus 44 vitest tests
+pnpm -F @rightmodel/desktop typecheck     desktop types
+pnpm -F @rightmodel/desktop test          desktop: builds, then Playwright against a stub agent
 pnpm lint                                  Biome check
 pnpm format                                Biome write
 ```
@@ -37,15 +37,15 @@ pnpm format                                Biome write
 Local development:
 
 ```
-pnpm -F switchtower build
+pnpm -F rightmodel build
 node packages/core/dist/cli.js --dry-run "What is a closure?"
-pnpm -F @switchtower/desktop dev
+pnpm -F @rightmodel/desktop dev
 ```
 
-`SWITCHTOWER_DIR` overrides the config and log directory. Use it to avoid touching your real config while testing:
+`RIGHTMODEL_DIR` overrides the config and log directory. Use it to avoid touching your real config while testing:
 
 ```
-SWITCHTOWER_DIR=/tmp/swt node packages/core/dist/cli.js init
+RIGHTMODEL_DIR=/tmp/swt node packages/core/dist/cli.js init
 ```
 
 ## Adding an agent adapter
@@ -93,7 +93,7 @@ The tag triggers `.github/workflows/release.yml`, which runs the test suites, bu
 Publishing the CLI to npm is a separate manual step:
 
 ```
-pnpm -F switchtower build
+pnpm -F rightmodel build
 cd packages/core
 npm publish --dry-run    # check the tarball contains dist/ and nothing else
 npm publish

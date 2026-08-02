@@ -27,7 +27,7 @@ afterEach(() => {
 async function run(...args: string[]): Promise<Run> {
   try {
     const { stdout, stderr } = await execFileAsync(process.execPath, [cli, ...args], {
-      env: { ...process.env, SWITCHTOWER_DIR: dir },
+      env: { ...process.env, RIGHTMODEL_DIR: dir },
       timeout: 30000,
     });
     return { stdout, stderr, code: 0 };
@@ -42,7 +42,7 @@ describe("cli", () => {
     const long = await run("--help");
     expect(long.code).toBe(0);
     expect(long.stdout).toContain("usage:");
-    expect(long.stdout).toContain("switchtower init");
+    expect(long.stdout).toContain("rightmodel init");
 
     const short = await run("-h");
     expect(short.stdout).toBe(long.stdout);

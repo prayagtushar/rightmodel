@@ -10,7 +10,7 @@
 
 **If this touches the scorer**
 
-Paste `switchtower bench` output from before and after. Say whether the golden set itself changed, since that changes what the accuracy number means.
+Paste `rightmodel bench` output from before and after. Say whether the golden set itself changed, since that changes what the accuracy number means.
 
 Before:
 

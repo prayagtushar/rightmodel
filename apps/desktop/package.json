@@ -1,7 +1,7 @@
 {
-  "name": "@switchtower/desktop",
+  "name": "@rightmodel/desktop",
   "version": "0.1.0",
-  "description": "Switchtower desktop app: a terminal that routes each task to the cheapest capable model in your agent CLIs.",
+  "description": "RightModel desktop app: a terminal that routes each task to the cheapest capable model in your agent CLIs.",
   "license": "MIT",
   "private": true,
   "main": "./out/main/index.js",
@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "node-pty": "^1.0.0",
-    "switchtower": "workspace:*"
+    "rightmodel": "workspace:*"
   },
   "devDependencies": {
     "@playwright/test": "^1.50.0",

@@ -32,6 +32,6 @@ const api = {
   },
 };
 
-contextBridge.exposeInMainWorld("switchtower", api);
+contextBridge.exposeInMainWorld("rightmodel", api);
 
-export type SwitchtowerApi = typeof api;
+export type RightModelApi = typeof api;

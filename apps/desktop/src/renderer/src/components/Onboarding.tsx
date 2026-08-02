@@ -10,7 +10,7 @@ export function Onboarding({ agents, onRescan }: Props): React.JSX.Element {
     <div className="onboarding">
       <h1>No agent CLIs found</h1>
       <p>
-        Switchtower routes your tasks to AI coding agents already installed on this machine. None of
+        RightModel routes your tasks to AI coding agents already installed on this machine. None of
         the supported agents were found on your PATH.
       </p>
       <ul className="agent-list">

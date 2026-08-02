@@ -83,7 +83,7 @@ export function App(): React.JSX.Element {
   return (
     <div className="app">
       <header className="topbar">
-        <span className="brand">Switchtower</span>
+        <span className="brand">RightModel</span>
         <PromptBar agents={agents} onLaunch={handleLaunch} />
         <button
           type="button"
@@ -116,8 +116,8 @@ export function App(): React.JSX.Element {
             {sessions.length === 0 && (
               <div className="empty-state">
                 <p>
-                  Type a task above. Switchtower picks the cheapest capable model and opens the
-                  agent here.
+                  Type a task above. RightModel picks the cheapest capable model and opens the agent
+                  here.
                 </p>
                 <p className="empty-hint">
                   Enter launches the proposal. The dropdown overrides it. Terminal opens a plain

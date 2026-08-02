@@ -1,6 +1,6 @@
 # Architecture
 
-Switchtower has two pieces. `packages/core` decides which model a task should go to. `apps/desktop` is an Electron shell that runs that decision in an embedded terminal. The core has no Electron dependency and works on its own from any terminal.
+RightModel has two pieces. `packages/core` decides which model a task should go to. `apps/desktop` is an Electron shell that runs that decision in an embedded terminal. The core has no Electron dependency and works on its own from any terminal.
 
 ## Data flow
 
@@ -44,7 +44,7 @@ Confidence is distance from the nearest tier boundary, scaled and capped at 0.95
 
 ### On the benchmark number
 
-`switchtower bench` runs the scorer against the 60 labeled prompts in `packages/core/src/golden.ts` and reports 60 out of 60. The heuristics were tuned against that same set, so it is a consistency check, not evidence of generalization. Both the set and the benchmark ship in the repo so the number can be re-derived and argued with.
+`rightmodel bench` runs the scorer against the 60 labeled prompts in `packages/core/src/golden.ts` and reports 60 out of 60. The heuristics were tuned against that same set, so it is a consistency check, not evidence of generalization. Both the set and the benchmark ship in the repo so the number can be re-derived and argued with.
 
 ## Adapters
 
@@ -62,11 +62,11 @@ An adapter is the entire integration surface for an agent CLI. `AgentAdapter` in
 
 ## Not parsing agent output
 
-Once an agent launches, its own interactive UI owns the session. Switchtower never reads, rewrites, or interprets the stream. That is the reason authentication flows, tool permission prompts, and rendering all behave exactly as they do in a plain terminal: there is nothing in between. It also means Switchtower cannot break when an agent CLI changes its output format, only when it changes its flags, which is contained in the adapter.
+Once an agent launches, its own interactive UI owns the session. RightModel never reads, rewrites, or interprets the stream. That is the reason authentication flows, tool permission prompts, and rendering all behave exactly as they do in a plain terminal: there is nothing in between. It also means RightModel cannot break when an agent CLI changes its output format, only when it changes its flags, which is contained in the adapter.
 
 ## Configuration
 
-`loadConfig()` reads `config.json` from `$SWITCHTOWER_DIR`, or `~/.config/switchtower`, or `%APPDATA%\switchtower` on Windows. Every field is validated individually and falls back to the default, so a hand edited or truncated config degrades to defaults with a warning rather than crashing. `switchtower init` writes the default file.
+`loadConfig()` reads `config.json` from `$RIGHTMODEL_DIR`, or `~/.config/rightmodel`, or `%APPDATA%\rightmodel` on Windows. Every field is validated individually and falls back to the default, so a hand edited or truncated config degrades to defaults with a warning rather than crashing. `rightmodel init` writes the default file.
 
 `mode` accepts `heuristic` or `judge`. Only `heuristic` is implemented. `judge` is reserved in the schema for a mode where a fast model classifies prompts the heuristics find ambiguous.
 
@@ -88,8 +88,8 @@ The main process owns node-pty sessions, agent detection, the config, and the lo
 
 Terminal output produced between spawning a process and xterm mounting is buffered in the main process and replayed on attach, so nothing is lost in that window. The buffer is capped, since a tab the user never opens would otherwise grow without limit.
 
-`apps/desktop` is CommonJS on purpose, with no `"type": "module"`, so electron-vite emits its default CJS bundles. The core package stays pure ESM and is bundled into the main process via `externalizeDepsPlugin({ exclude: ["switchtower"] })`. node-pty is rebuilt for the Electron ABI by the desktop package's postinstall.
+`apps/desktop` is CommonJS on purpose, with no `"type": "module"`, so electron-vite emits its default CJS bundles. The core package stays pure ESM and is bundled into the main process via `externalizeDepsPlugin({ exclude: ["rightmodel"] })`. node-pty is rebuilt for the Electron ABI by the desktop package's postinstall.
 
 ## What is deliberately absent
 
-No network calls, no telemetry, no accounts, no API keys, and no runtime dependencies in the core package. Switchtower picks a `--model` flag for a CLI you already installed and authenticated. That is the whole product, and keeping it that small is what makes the privacy claim checkable rather than a promise.
+No network calls, no telemetry, no accounts, no API keys, and no runtime dependencies in the core package. RightModel picks a `--model` flag for a CLI you already installed and authenticated. That is the whole product, and keeping it that small is what makes the privacy claim checkable rather than a promise.

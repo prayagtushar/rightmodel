@@ -1,6 +1,6 @@
 import { homedir } from "node:os";
 import { type IPty, spawn } from "node-pty";
-import type { LaunchSpec } from "switchtower";
+import type { LaunchSpec } from "rightmodel";
 
 export interface PtyEvents {
   onData(id: string, data: string): void;

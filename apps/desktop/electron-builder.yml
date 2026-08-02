@@ -1,5 +1,5 @@
-appId: com.prayagtushar.switchtower
-productName: Switchtower
+appId: com.prayagtushar.rightmodel
+productName: RightModel
 directories:
   output: release
 files:

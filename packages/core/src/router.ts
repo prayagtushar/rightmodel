@@ -2,10 +2,10 @@ import { getAdapter } from "./adapters/index.js";
 import { loadConfig } from "./config.js";
 import { DecisionLog } from "./log.js";
 import { scoreTask } from "./scorer.js";
-import type { LaunchSpec, RouteDecision, SwitchtowerConfig } from "./types.js";
+import type { LaunchSpec, RightModelConfig, RouteDecision } from "./types.js";
 
 export interface RouteOptions {
-  config?: SwitchtowerConfig;
+  config?: RightModelConfig;
   log?: boolean;
 }
 

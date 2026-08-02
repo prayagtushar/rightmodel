@@ -19,7 +19,7 @@ export interface TierTarget {
   effort?: string;
 }
 
-export interface SwitchtowerConfig {
+export interface RightModelConfig {
   mode: "heuristic" | "judge";
   tiers: Record<Tier, TierTarget>;
 }

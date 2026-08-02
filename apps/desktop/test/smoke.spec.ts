@@ -13,7 +13,7 @@ test("launches, routes a task with the stub agent, and spawns a session", async 
     args: [appRoot],
     env: {
       ...process.env,
-      SWITCHTOWER_DIR: stateDir,
+      RIGHTMODEL_DIR: stateDir,
       PATH: fixtures + delimiter + (process.env.PATH ?? ""),
     },
   });

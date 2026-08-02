@@ -1,8 +1,8 @@
 // Types come from the core package so the two cannot drift. These are
-// type-only imports, so nothing from switchtower is bundled into the renderer.
-export type { ModelInfo, RouteDecision, Tier, TierTarget } from "switchtower";
+// type-only imports, so nothing from rightmodel is bundled into the renderer.
+export type { ModelInfo, RouteDecision, Tier, TierTarget } from "rightmodel";
 
-import type { ModelInfo, RouteDecision, TierTarget } from "switchtower";
+import type { ModelInfo, RouteDecision, TierTarget } from "rightmodel";
 
 export interface AgentStatus {
   id: string;
@@ -23,7 +23,7 @@ export interface PtyExitEvent {
   exitCode: number;
 }
 
-export interface SwitchtowerApi {
+export interface RightModelApi {
   listAgents(): Promise<AgentStatus[]>;
   route(task: string): Promise<RouteDecision>;
   launch(payload: {
@@ -40,5 +40,4 @@ export interface SwitchtowerApi {
   onExit(cb: (event: PtyExitEvent) => void): () => void;
 }
 
-export const api: SwitchtowerApi = (window as unknown as { switchtower: SwitchtowerApi })
-  .switchtower;
+export const api: RightModelApi = (window as unknown as { rightmodel: RightModelApi }).rightmodel;

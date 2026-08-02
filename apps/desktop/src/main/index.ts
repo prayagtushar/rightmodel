@@ -10,7 +10,7 @@ function createWindow(): void {
     height: 720,
     minWidth: 720,
     minHeight: 480,
-    title: "Switchtower",
+    title: "RightModel",
     backgroundColor: "#101418",
     webPreferences: {
       preload: join(__dirname, "../preload/index.js"),
@@ -56,7 +56,7 @@ app
     });
   })
   .catch((err: unknown) => {
-    console.error("failed to start Switchtower:", err);
+    console.error("failed to start RightModel:", err);
     app.quit();
   });
 

@@ -7,7 +7,7 @@ import {
   route,
   scoreTask,
   type TierTarget,
-} from "switchtower";
+} from "rightmodel";
 import { PtyManager } from "./pty-manager.js";
 
 export interface LaunchPayload {

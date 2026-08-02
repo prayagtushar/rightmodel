@@ -15,7 +15,7 @@ labels: bug
 
 **Which surface**
 
-- [ ] CLI (`switchtower`)
+- [ ] CLI (`rightmodel`)
 - [ ] Desktop app
 
 **If routing picked the wrong model, paste the decision**
@@ -23,12 +23,12 @@ labels: bug
 Run the task with `--dry-run` and paste the output:
 
 ```
-switchtower --dry-run "your task here"
+rightmodel --dry-run "your task here"
 ```
 
 **Environment**
 
-- Switchtower version (`switchtower --version`):
+- RightModel version (`rightmodel --version`):
 - Agent CLI and version (for example `claude --version`):
 - OS and architecture:
 - Node version (CLI only):

@@ -10,15 +10,15 @@ import { DecisionLog } from "./log.js";
 import { route } from "./router.js";
 import type { RouteDecision, Tier } from "./types.js";
 
-const USAGE = `switchtower - route each coding task to the cheapest capable model
+const USAGE = `rightmodel - route each coding task to the cheapest capable model
 
 usage:
-  switchtower "<task>"                  route the task and launch the agent
-  switchtower --dry-run "<task>"        print the decision without launching
-  switchtower --model <model> "<task>"  override the model (logged as a disagreement)
-  switchtower init                      write a default config file
-  switchtower bench                     run the golden set benchmark
-  switchtower wrong                     mark the last decision wrong (logged)
+  rightmodel "<task>"                  route the task and launch the agent
+  rightmodel --dry-run "<task>"        print the decision without launching
+  rightmodel --model <model> "<task>"  override the model (logged as a disagreement)
+  rightmodel init                      write a default config file
+  rightmodel bench                     run the golden set benchmark
+  rightmodel wrong                     mark the last decision wrong (logged)
 
 options:
   -h, --help                            show this help

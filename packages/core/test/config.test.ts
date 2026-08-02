@@ -8,16 +8,16 @@ let dir: string;
 
 beforeEach(() => {
   dir = mkdtempSync(join(tmpdir(), "swt-"));
-  process.env.SWITCHTOWER_DIR = dir;
+  process.env.RIGHTMODEL_DIR = dir;
 });
 
 afterEach(() => {
-  delete process.env.SWITCHTOWER_DIR;
+  delete process.env.RIGHTMODEL_DIR;
   rmSync(dir, { recursive: true, force: true });
 });
 
 describe("config", () => {
-  it("configDir honors SWITCHTOWER_DIR", () => {
+  it("configDir honors RIGHTMODEL_DIR", () => {
     expect(configDir()).toBe(dir);
   });
 

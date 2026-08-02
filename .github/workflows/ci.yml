@@ -51,19 +51,19 @@ jobs:
         run: pnpm typecheck
 
       - name: Core tests
-        run: pnpm -F switchtower test
+        run: pnpm -F rightmodel test
 
       - name: Benchmark
-        run: pnpm -F switchtower bench
+        run: pnpm -F rightmodel bench
 
       # The Electron smoke test needs a display on Linux.
       - name: Desktop smoke test (Linux)
         if: matrix.os == 'ubuntu-latest'
-        run: xvfb-run --auto-servernum pnpm -F @switchtower/desktop test
+        run: xvfb-run --auto-servernum pnpm -F @rightmodel/desktop test
 
       - name: Desktop smoke test
         if: matrix.os != 'ubuntu-latest'
-        run: pnpm -F @switchtower/desktop test
+        run: pnpm -F @rightmodel/desktop test
 
       - name: Upload Playwright report on failure
         if: failure()
@@ -85,4 +85,4 @@ jobs:
           node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - run: pnpm -F switchtower test:coverage
+      - run: pnpm -F rightmodel test:coverage

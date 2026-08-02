@@ -26,7 +26,7 @@ export class ErrorBoundary extends Component<Props, State> {
     if (!error) return this.props.children;
     return (
       <div className="crash">
-        <h1>Switchtower hit an error</h1>
+        <h1>RightModel hit an error</h1>
         <p>{error.message}</p>
         <button
           type="button"

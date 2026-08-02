@@ -36,18 +36,18 @@ jobs:
         run: pnpm typecheck
 
       - name: Core tests
-        run: pnpm -F switchtower test
+        run: pnpm -F rightmodel test
 
       # The desktop suite gates the artifact this workflow ships, so it has to
       # run here and not only in ci.yml.
       - name: Desktop smoke test
-        run: pnpm -F @switchtower/desktop test
+        run: pnpm -F @rightmodel/desktop test
 
       - name: Build core
-        run: pnpm -F switchtower build
+        run: pnpm -F rightmodel build
 
       - name: Build installer
-        run: pnpm -F @switchtower/desktop ${{ matrix.target }}
+        run: pnpm -F @rightmodel/desktop ${{ matrix.target }}
         env:
           # Builds are unsigned. See the note in README.md.
           CSC_IDENTITY_AUTO_DISCOVERY: "false"

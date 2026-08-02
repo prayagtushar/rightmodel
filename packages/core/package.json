@@ -1,17 +1,17 @@
 {
-  "name": "switchtower",
+  "name": "rightmodel",
   "version": "0.1.0",
   "description": "Routes each coding task to the cheapest capable model in the agent CLIs you already have.",
   "license": "MIT",
   "author": "Prayag Tushar",
-  "homepage": "https://github.com/prayagtushar/switchtower#readme",
+  "homepage": "https://github.com/prayagtushar/rightmodel#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/prayagtushar/switchtower.git",
+    "url": "git+https://github.com/prayagtushar/rightmodel.git",
     "directory": "packages/core"
   },
   "bugs": {
-    "url": "https://github.com/prayagtushar/switchtower/issues"
+    "url": "https://github.com/prayagtushar/rightmodel/issues"
   },
   "keywords": [
     "claude-code",
@@ -28,7 +28,7 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "bin": {
-    "switchtower": "./dist/cli.js"
+    "rightmodel": "./dist/cli.js"
   },
   "files": [
     "dist"
