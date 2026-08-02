@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import { mkdtempSync, rmSync } from "node:fs";
+import { appendFileSync, mkdtempSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { DecisionLog, taskHash, taskPreview } from "../src/log.js";
@@ -44,5 +44,26 @@ describe("DecisionLog", () => {
 
   it("lastDecision is null on empty log", () => {
     expect(new DecisionLog().lastDecision()).toBeNull();
+  });
+
+  it("skips a corrupt line and still reads the entries around it", () => {
+    const log = new DecisionLog();
+    log.logDecision("task one", scoreTask("task one"), target);
+    appendFileSync(join(dir, "decisions.jsonl"), '{"ts":"2026-01-01T00:00:00.000Z","ty\n');
+    log.logDecision("task two", scoreTask("task two"), target);
+
+    const all = log.readAll();
+    expect(all).toHaveLength(2);
+    expect(log.lastDecision()?.taskPreview).toBe("task two");
+  });
+
+  it("survives a truncated final line with no newline", () => {
+    const log = new DecisionLog();
+    log.logDecision("task one", scoreTask("task one"), target);
+    appendFileSync(join(dir, "decisions.jsonl"), '{"ts":"2026-01-01T00:00:00.000Z","ty');
+
+    expect(() => log.readAll()).not.toThrow();
+    expect(log.readAll()).toHaveLength(1);
+    expect(log.lastDecision()?.taskPreview).toBe("task one");
   });
 });

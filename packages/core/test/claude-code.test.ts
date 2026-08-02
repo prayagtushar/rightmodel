@@ -3,10 +3,11 @@ import { claudeCodeAdapter } from "../src/adapters/claude-code.js";
 import { ALL_ADAPTERS, getAdapter } from "../src/adapters/index.js";
 
 describe("claudeCodeAdapter", () => {
-  it("exposes three models ordered by cost", () => {
+  it("exposes the model aliases ordered by cost", () => {
     const caps = claudeCodeAdapter.capabilities({ installed: true });
-    expect(caps.models.map((m) => m.id)).toEqual(["haiku", "sonnet", "opus"]);
-    expect(caps.models[0].costRank).toBeLessThan(caps.models[2].costRank);
+    expect(caps.models.map((m) => m.id)).toEqual(["haiku", "sonnet", "opus", "fable"]);
+    const ranks = caps.models.map((m) => m.costRank);
+    expect(ranks).toEqual([...ranks].sort((a, b) => a - b));
   });
 
   it("builds an argv launch spec with model flag and positional prompt", () => {

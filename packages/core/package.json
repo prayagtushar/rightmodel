@@ -3,6 +3,24 @@
   "version": "0.1.0",
   "description": "Routes each coding task to the cheapest capable model in the agent CLIs you already have.",
   "license": "MIT",
+  "author": "Prayag Tushar",
+  "homepage": "https://github.com/prayagtushar/switchtower#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/prayagtushar/switchtower.git",
+    "directory": "packages/core"
+  },
+  "bugs": {
+    "url": "https://github.com/prayagtushar/switchtower/issues"
+  },
+  "keywords": [
+    "claude-code",
+    "cli",
+    "llm",
+    "model-routing",
+    "ai-agents",
+    "cost-optimization"
+  ],
   "type": "module",
   "engines": { "node": ">=20" },
   "main": "./dist/index.js",
@@ -11,7 +29,9 @@
   "files": ["dist"],
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "tsc -p tsconfig.json && vitest run",
+    "test:watch": "vitest",
     "bench": "node dist/cli.js bench"
   },
   "devDependencies": {

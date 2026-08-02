@@ -52,10 +52,17 @@ export class DecisionLog {
 
   readAll(): LogEntry[] {
     if (!existsSync(this.path)) return [];
-    return readFileSync(this.path, "utf8")
-      .split("\n")
-      .filter(Boolean)
-      .map((line) => JSON.parse(line) as LogEntry);
+    const entries: LogEntry[] = [];
+    for (const line of readFileSync(this.path, "utf8").split("\n")) {
+      if (!line) continue;
+      try {
+        entries.push(JSON.parse(line) as LogEntry);
+      } catch {
+        // A partial write leaves a truncated line. Skip it rather than
+        // failing every read of the log.
+      }
+    }
+    return entries;
   }
 
   lastDecision(): LogEntry | null {

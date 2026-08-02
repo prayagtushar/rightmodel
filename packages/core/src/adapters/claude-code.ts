@@ -31,6 +31,7 @@ export const claudeCodeAdapter: AgentAdapter = {
         { id: "haiku", label: "Haiku", costRank: 1 },
         { id: "sonnet", label: "Sonnet", costRank: 2 },
         { id: "opus", label: "Opus", costRank: 3 },
+        { id: "fable", label: "Fable", costRank: 4 },
       ],
     };
   },
