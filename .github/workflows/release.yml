@@ -22,11 +22,11 @@ jobs:
             artifact: apps/desktop/release/*.exe
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
         with:
           version: 10
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: 22
           cache: pnpm
@@ -52,7 +52,7 @@ jobs:
           # Builds are unsigned. See the note in README.md.
           CSC_IDENTITY_AUTO_DISCOVERY: "false"
 
-      - uses: softprops/action-gh-release@v2
+      - uses: softprops/action-gh-release@v3
         with:
           files: ${{ matrix.artifact }}
           draft: true
