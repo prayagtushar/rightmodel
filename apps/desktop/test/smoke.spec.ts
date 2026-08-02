@@ -1,8 +1,8 @@
-import { expect, test } from "@playwright/test";
-import { _electron as electron } from "playwright";
 import { mkdtempSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { delimiter, join } from "node:path";
+import { expect, test } from "@playwright/test";
+import { _electron as electron } from "playwright";
 
 const appRoot = join(__dirname, "..");
 const fixtures = join(__dirname, "fixtures");

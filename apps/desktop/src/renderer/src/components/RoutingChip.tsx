@@ -7,7 +7,12 @@ interface Props {
   onOverride(model: string): void;
 }
 
-export function RoutingChip({ decision, agent, overrideModel, onOverride }: Props): React.JSX.Element {
+export function RoutingChip({
+  decision,
+  agent,
+  overrideModel,
+  onOverride,
+}: Props): React.JSX.Element {
   if (!decision) {
     return <div className="routing-chip routing-chip-idle">router idle</div>;
   }

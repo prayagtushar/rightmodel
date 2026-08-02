@@ -1,5 +1,5 @@
-import { spawn, type IPty } from "node-pty";
 import { homedir } from "node:os";
+import { type IPty, spawn } from "node-pty";
 import type { LaunchSpec } from "switchtower";
 
 export interface PtyEvents {

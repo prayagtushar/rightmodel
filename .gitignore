@@ -1,4 +1,7 @@
-docs/
+# Private planning notes. Everything else under docs/ is published.
+docs/superpowers/
+docs/BUILD_NOTES.md
+
 node_modules/
 dist/
 out/
@@ -9,3 +12,4 @@ release/
 coverage/
 test-results/
 playwright-report/
+.remember/

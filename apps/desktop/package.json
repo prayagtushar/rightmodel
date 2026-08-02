@@ -5,7 +5,9 @@
   "license": "MIT",
   "private": true,
   "main": "./out/main/index.js",
-  "engines": { "node": ">=20" },
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "dev": "electron-vite dev",
     "build": "electron-vite build",

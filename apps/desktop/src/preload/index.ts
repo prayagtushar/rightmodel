@@ -1,4 +1,4 @@
-import { contextBridge, ipcRenderer, type IpcRendererEvent } from "electron";
+import { contextBridge, type IpcRendererEvent, ipcRenderer } from "electron";
 
 export interface PtyDataEvent {
   id: string;

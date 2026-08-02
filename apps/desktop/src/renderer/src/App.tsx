@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useState } from "react";
-import { api, type AgentStatus, type TierTarget } from "./api.js";
+import { type AgentStatus, api, type TierTarget } from "./api.js";
 import { Onboarding } from "./components/Onboarding.js";
 import { PromptBar } from "./components/PromptBar.js";
 import { TerminalPane } from "./components/TerminalPane.js";
-import { TerminalTabs, type SessionTab } from "./components/TerminalTabs.js";
+import { type SessionTab, TerminalTabs } from "./components/TerminalTabs.js";
 
 function message(err: unknown): string {
   return err instanceof Error ? err.message : String(err);
@@ -67,35 +67,37 @@ export function App(): React.JSX.Element {
       .catch((err: unknown) => setError(`Could not open a terminal: ${message(err)}`));
   }, [addSession]);
 
-  const handleClose = useCallback(
-    (id: string) => {
-      api.kill(id).catch((err: unknown) => console.error("failed to kill session:", err));
-      setSessions((prev) => {
-        const next = prev.filter((s) => s.id !== id);
-        setActiveId((current) =>
-          current === id ? (next.length > 0 ? next[next.length - 1].id : null) : current
-        );
-        return next;
-      });
-    },
-    []
-  );
+  const handleClose = useCallback((id: string) => {
+    api.kill(id).catch((err: unknown) => console.error("failed to kill session:", err));
+    setSessions((prev) => {
+      const next = prev.filter((s) => s.id !== id);
+      setActiveId((current) =>
+        current === id ? (next.length > 0 ? next[next.length - 1].id : null) : current
+      );
+      return next;
+    });
+  }, []);
 
-  const noAgents = agents !== null && agents.every((a) => !a.installed);
+  const noAgents = agents?.every((a) => !a.installed);
 
   return (
     <div className="app">
       <header className="topbar">
         <span className="brand">Switchtower</span>
         <PromptBar agents={agents} onLaunch={handleLaunch} />
-        <button className="ghost-button" onClick={handlePlainTerminal} title="Open a plain shell">
+        <button
+          type="button"
+          className="ghost-button"
+          onClick={handlePlainTerminal}
+          title="Open a plain shell"
+        >
           Terminal
         </button>
       </header>
       {error !== null && (
         <div className="error-banner" role="alert">
           <span>{error}</span>
-          <button className="ghost-button" onClick={() => setError(null)}>
+          <button type="button" className="ghost-button" onClick={() => setError(null)}>
             Dismiss
           </button>
         </div>
@@ -113,8 +115,14 @@ export function App(): React.JSX.Element {
           <div className="panes">
             {sessions.length === 0 && (
               <div className="empty-state">
-                <p>Type a task above. Switchtower picks the cheapest capable model and opens the agent here.</p>
-                <p className="empty-hint">Enter launches the proposal. The dropdown overrides it. Terminal opens a plain shell.</p>
+                <p>
+                  Type a task above. Switchtower picks the cheapest capable model and opens the
+                  agent here.
+                </p>
+                <p className="empty-hint">
+                  Enter launches the proposal. The dropdown overrides it. Terminal opens a plain
+                  shell.
+                </p>
               </div>
             )}
             {sessions.map((s) => (

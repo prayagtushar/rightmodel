@@ -28,7 +28,11 @@ export class ErrorBoundary extends Component<Props, State> {
       <div className="crash">
         <h1>Switchtower hit an error</h1>
         <p>{error.message}</p>
-        <button className="ghost-button" onClick={() => this.setState({ error: null })}>
+        <button
+          type="button"
+          className="ghost-button"
+          onClick={() => this.setState({ error: null })}
+        >
           Try again
         </button>
       </div>

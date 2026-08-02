@@ -22,7 +22,7 @@ export function Onboarding({ agents, onRescan }: Props): React.JSX.Element {
         ))}
       </ul>
       <p>Install one, then scan again.</p>
-      <button className="launch-button" onClick={onRescan}>
+      <button type="button" className="launch-button" onClick={onRescan}>
         Scan again
       </button>
     </div>

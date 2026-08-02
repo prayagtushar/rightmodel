@@ -3,11 +3,11 @@ import { spawn } from "node:child_process";
 import { existsSync, readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { DEFAULT_CONFIG, configDir, loadConfig, saveConfig } from "./config.js";
+import { getAdapter } from "./adapters/index.js";
+import { formatBench, runBench } from "./bench.js";
+import { configDir, DEFAULT_CONFIG, loadConfig, saveConfig } from "./config.js";
 import { DecisionLog } from "./log.js";
 import { route } from "./router.js";
-import { runBench, formatBench } from "./bench.js";
-import { getAdapter } from "./adapters/index.js";
 import type { RouteDecision, Tier } from "./types.js";
 
 const USAGE = `switchtower - route each coding task to the cheapest capable model
@@ -54,7 +54,7 @@ function runInit(): void {
 function runWrong(): void {
   const log = new DecisionLog();
   const last = log.lastDecision();
-  if (!last || !last.proposed || !last.tier) {
+  if (!last?.proposed || !last.tier) {
     console.error("no logged decision to mark wrong");
     process.exitCode = 1;
     return;
@@ -146,7 +146,10 @@ async function main(): Promise<void> {
     launch = adapter.launchSpec(task, modelOverride);
     log.logOverride(task, decision.target, { agent: decision.target.agent, model: modelOverride });
   }
-  log.logLaunch(task, { agent: decision.target.agent, model: modelOverride ?? decision.target.model });
+  log.logLaunch(task, {
+    agent: decision.target.agent,
+    model: modelOverride ?? decision.target.model,
+  });
 
   console.log("");
   const child = spawn(launch.binary, launch.args, { stdio: "inherit" });

@@ -1,10 +1,10 @@
-import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { mkdtempSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { route } from "../src/router.js";
+import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { DEFAULT_CONFIG } from "../src/config.js";
 import { DecisionLog } from "../src/log.js";
+import { route } from "../src/router.js";
 
 let dir: string;
 beforeEach(() => {

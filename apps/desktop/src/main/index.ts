@@ -1,5 +1,5 @@
-import { BrowserWindow, app, shell } from "electron";
 import { join } from "node:path";
+import { app, BrowserWindow, shell } from "electron";
 import { registerIpc } from "./ipc.js";
 
 let mainWindow: BrowserWindow | null = null;

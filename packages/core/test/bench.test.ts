@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { GOLDEN } from "../src/golden.js";
 import { formatBench, runBench } from "../src/bench.js";
+import { GOLDEN } from "../src/golden.js";
 
 describe("bench", () => {
   it("golden set has 60 cases, 20 per tier", () => {

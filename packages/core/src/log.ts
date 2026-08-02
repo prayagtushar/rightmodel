@@ -19,7 +19,7 @@ export class DecisionLog {
 
   private append(entry: LogEntry): void {
     mkdirSync(configDir(), { recursive: true });
-    appendFileSync(this.path, JSON.stringify(entry) + "\n", "utf8");
+    appendFileSync(this.path, `${JSON.stringify(entry)}\n`, "utf8");
   }
 
   private base(task: string): Pick<LogEntry, "ts" | "taskHash" | "taskPreview"> {

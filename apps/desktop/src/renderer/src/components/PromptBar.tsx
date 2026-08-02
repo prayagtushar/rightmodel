@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { api, type AgentStatus, type RouteDecision, type TierTarget } from "../api.js";
+import { type AgentStatus, api, type RouteDecision, type TierTarget } from "../api.js";
 import { RoutingChip } from "./RoutingChip.js";
 
 interface Props {
@@ -74,8 +74,9 @@ export function PromptBar({ agents, onLaunch }: Props): React.JSX.Element {
         onOverride={setOverrideModel}
       />
       <button
+        type="button"
         className="launch-button"
-        disabled={!decision || !decision.agentInstalled || !text.trim()}
+        disabled={!decision?.agentInstalled || !text.trim()}
         onClick={launch}
       >
         Launch

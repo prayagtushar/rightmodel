@@ -26,7 +26,11 @@ export interface PtyExitEvent {
 export interface SwitchtowerApi {
   listAgents(): Promise<AgentStatus[]>;
   route(task: string): Promise<RouteDecision>;
-  launch(payload: { task: string; proposed: TierTarget; chosen: TierTarget }): Promise<{ id: string }>;
+  launch(payload: {
+    task: string;
+    proposed: TierTarget;
+    chosen: TierTarget;
+  }): Promise<{ id: string }>;
   plainTerminal(): Promise<{ id: string }>;
   attach(id: string): Promise<void>;
   write(id: string, data: string): Promise<void>;

@@ -1,8 +1,8 @@
-import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { existsSync, mkdtempSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { DEFAULT_CONFIG, configDir, loadConfig, saveConfig } from "../src/config.js";
+import { afterEach, beforeEach, describe, expect, it } from "vitest";
+import { configDir, DEFAULT_CONFIG, loadConfig, saveConfig } from "../src/config.js";
 
 let dir: string;
 
@@ -49,7 +49,11 @@ describe("config", () => {
   });
 
   it("fills missing tiers from defaults", () => {
-    writeFileSync(join(dir, "config.json"), JSON.stringify({ mode: "heuristic", tiers: {} }), "utf8");
+    writeFileSync(
+      join(dir, "config.json"),
+      JSON.stringify({ mode: "heuristic", tiers: {} }),
+      "utf8"
+    );
     const { config } = loadConfig();
     expect(config.tiers.hard.model).toBe("opus");
   });

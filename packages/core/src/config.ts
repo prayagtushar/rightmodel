@@ -49,5 +49,5 @@ export function loadConfig(): { config: SwitchtowerConfig; warning?: string } {
 
 export function saveConfig(config: SwitchtowerConfig): void {
   mkdirSync(configDir(), { recursive: true });
-  writeFileSync(configPath(), JSON.stringify(config, null, 2) + "\n", "utf8");
+  writeFileSync(configPath(), `${JSON.stringify(config, null, 2)}\n`, "utf8");
 }

@@ -45,9 +45,7 @@ export function scoreTask(text: string): ScoreResult {
     const firstFiveWords = words.slice(0, 5).join(" ").toLowerCase();
     const early = ambitionHits.some((hit) => firstFiveWords.includes(hit));
     signals.push(
-      early
-        ? { name: "ambition verb", weight: 3 }
-        : { name: "ambition mentioned", weight: 1 }
+      early ? { name: "ambition verb", weight: 3 } : { name: "ambition mentioned", weight: 1 }
     );
   }
 
@@ -66,16 +64,15 @@ export function scoreTask(text: string): ScoreResult {
   const tier: Tier = score >= 5 ? "hard" : score >= 2 ? "medium" : "easy";
 
   const boundaryDistance =
-    tier === "hard"
-      ? score - 5
-      : tier === "medium"
-        ? Math.min(score - 2, 4 - score)
-        : 1 - score;
+    tier === "hard" ? score - 5 : tier === "medium" ? Math.min(score - 2, 4 - score) : 1 - score;
   const confidence = Math.min(0.95, 0.6 + 0.07 * Math.max(0, boundaryDistance));
 
   const positive = signals.filter((s) => s.weight > 0).sort((a, b) => b.weight - a.weight);
   const negative = signals.filter((s) => s.weight < 0);
-  const named = (tier === "easy" ? negative.concat(positive) : positive.concat(negative)).slice(0, 3);
+  const named = (tier === "easy" ? negative.concat(positive) : positive.concat(negative)).slice(
+    0,
+    3
+  );
   const reason =
     named.length > 0
       ? `${tier}: ${named.map((s) => s.name).join(", ")}`

@@ -1,6 +1,6 @@
+import { GOLDEN, type GoldenCase } from "./golden.js";
 import { scoreTask } from "./scorer.js";
 import type { Tier } from "./types.js";
-import { GOLDEN, type GoldenCase } from "./golden.js";
 
 const TIERS: Tier[] = ["easy", "medium", "hard"];
 
@@ -32,7 +32,14 @@ export function runBench(cases: GoldenCase[] = GOLDEN): BenchResult {
 
   const total = cases.length;
   const correct = TIERS.reduce((sum, t) => sum + perTier[t].correct, 0);
-  return { total, correct, accuracy: total === 0 ? 0 : correct / total, perTier, confusion, misses };
+  return {
+    total,
+    correct,
+    accuracy: total === 0 ? 0 : correct / total,
+    perTier,
+    confusion,
+    misses,
+  };
 }
 
 export function formatBench(r: BenchResult): string {
