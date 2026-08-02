@@ -5,13 +5,27 @@ import { PromptBar } from "./components/PromptBar.js";
 import { TerminalPane } from "./components/TerminalPane.js";
 import { TerminalTabs, type SessionTab } from "./components/TerminalTabs.js";
 
+function message(err: unknown): string {
+  return err instanceof Error ? err.message : String(err);
+}
+
 export function App(): React.JSX.Element {
   const [agents, setAgents] = useState<AgentStatus[] | null>(null);
   const [sessions, setSessions] = useState<SessionTab[]>([]);
   const [activeId, setActiveId] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   const loadAgents = useCallback(() => {
-    api.listAgents().then(setAgents);
+    api
+      .listAgents()
+      .then((next) => {
+        setAgents(next);
+        setError(null);
+      })
+      .catch((err: unknown) => {
+        setAgents([]);
+        setError(`Could not scan for agent CLIs: ${message(err)}`);
+      });
   }, []);
 
   useEffect(() => {
@@ -30,22 +44,32 @@ export function App(): React.JSX.Element {
   }, []);
 
   const handleLaunch = useCallback(
-    async (task: string, proposed: TierTarget, chosen: TierTarget) => {
-      const { id } = await api.launch({ task, proposed, chosen });
-      const preview = task.replace(/\s+/g, " ").slice(0, 24) || "task";
-      addSession(id, `${chosen.model} ${preview}`);
+    (task: string, proposed: TierTarget, chosen: TierTarget) => {
+      api
+        .launch({ task, proposed, chosen })
+        .then(({ id }) => {
+          const preview = task.replace(/\s+/g, " ").slice(0, 24) || "task";
+          addSession(id, `${chosen.model} ${preview}`);
+          setError(null);
+        })
+        .catch((err: unknown) => setError(`Could not launch ${chosen.agent}: ${message(err)}`));
     },
     [addSession]
   );
 
-  const handlePlainTerminal = useCallback(async () => {
-    const { id } = await api.plainTerminal();
-    addSession(id, "shell");
+  const handlePlainTerminal = useCallback(() => {
+    api
+      .plainTerminal()
+      .then(({ id }) => {
+        addSession(id, "shell");
+        setError(null);
+      })
+      .catch((err: unknown) => setError(`Could not open a terminal: ${message(err)}`));
   }, [addSession]);
 
   const handleClose = useCallback(
     (id: string) => {
-      api.kill(id);
+      api.kill(id).catch((err: unknown) => console.error("failed to kill session:", err));
       setSessions((prev) => {
         const next = prev.filter((s) => s.id !== id);
         setActiveId((current) =>
@@ -68,6 +92,14 @@ export function App(): React.JSX.Element {
           Terminal
         </button>
       </header>
+      {error !== null && (
+        <div className="error-banner" role="alert">
+          <span>{error}</span>
+          <button className="ghost-button" onClick={() => setError(null)}>
+            Dismiss
+          </button>
+        </div>
+      )}
       {noAgents ? (
         <Onboarding agents={agents ?? []} onRescan={loadAgents} />
       ) : (

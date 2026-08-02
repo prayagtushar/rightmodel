@@ -159,6 +159,37 @@ body,
   border-color: #8ab4f8;
 }
 
+.crash {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  height: 100%;
+  padding: 32px;
+  text-align: center;
+  color: #9aa5b1;
+}
+
+.crash h1 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #ff7b72;
+}
+
+.error-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 12px;
+  background: #2d1418;
+  border-bottom: 1px solid #5c2b2b;
+  color: #ff7b72;
+  font-size: 13px;
+}
+
 .tabs {
   display: flex;
   gap: 2px;

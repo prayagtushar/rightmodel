@@ -1,25 +1,8 @@
-export type Tier = "easy" | "medium" | "hard";
+// Types come from the core package so the two cannot drift. These are
+// type-only imports, so nothing from switchtower is bundled into the renderer.
+export type { ModelInfo, RouteDecision, Tier, TierTarget } from "switchtower";
 
-export interface TierTarget {
-  agent: string;
-  model: string;
-  effort?: string;
-}
-
-export interface RouteDecision {
-  tier: Tier;
-  score: number;
-  confidence: number;
-  reason: string;
-  target: TierTarget;
-  agentInstalled: boolean;
-}
-
-export interface ModelInfo {
-  id: string;
-  label: string;
-  costRank: number;
-}
+import type { ModelInfo, RouteDecision, TierTarget } from "switchtower";
 
 export interface AgentStatus {
   id: string;

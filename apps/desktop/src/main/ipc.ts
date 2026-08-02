@@ -3,6 +3,7 @@ import {
   ALL_ADAPTERS,
   DecisionLog,
   getAdapter,
+  resetDetectionCache,
   route,
   scoreTask,
   type TierTarget,
@@ -22,6 +23,10 @@ export function registerIpc(getWindow: () => BrowserWindow | null): PtyManager {
   });
 
   ipcMain.handle("agents:list", async () => {
+    // Detection caches the resolved binary path for the life of the process.
+    // Clear it first so the onboarding rescan sees an agent installed after
+    // the app started.
+    resetDetectionCache();
     const statuses = [];
     for (const adapter of ALL_ADAPTERS) {
       const detection = await adapter.detect();

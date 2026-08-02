@@ -15,6 +15,11 @@ interface Session {
 
 let nextId = 1;
 
+// Output produced before the renderer attaches is held here. A tab the user
+// never selects would otherwise grow this without limit, so keep only the most
+// recent chunks: a terminal only ever renders the tail anyway.
+const MAX_BUFFERED_CHUNKS = 2000;
+
 export class PtyManager {
   private sessions = new Map<string, Session>();
 
@@ -33,8 +38,12 @@ export class PtyManager {
     this.sessions.set(id, session);
 
     pty.onData((data) => {
-      if (session.attached) this.events.onData(id, data);
-      else session.buffer.push(data);
+      if (session.attached) {
+        this.events.onData(id, data);
+        return;
+      }
+      session.buffer.push(data);
+      if (session.buffer.length > MAX_BUFFERED_CHUNKS) session.buffer.shift();
     });
     pty.onExit(({ exitCode }) => {
       this.events.onExit(id, exitCode);

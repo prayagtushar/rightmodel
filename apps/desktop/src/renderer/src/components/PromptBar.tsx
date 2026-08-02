@@ -12,15 +12,28 @@ export function PromptBar({ agents, onLaunch }: Props): React.JSX.Element {
   const [decision, setDecision] = useState<RouteDecision | null>(null);
   const [overrideModel, setOverrideModel] = useState<string>("auto");
   const debounceRef = useRef<number | null>(null);
+  // Routing is debounced, so responses can arrive out of order. Only the most
+  // recent request is allowed to set the chip.
+  const requestSeq = useRef(0);
 
   useEffect(() => {
     if (debounceRef.current !== null) window.clearTimeout(debounceRef.current);
     if (!text.trim()) {
+      requestSeq.current++;
       setDecision(null);
       return;
     }
     debounceRef.current = window.setTimeout(() => {
-      api.route(text).then(setDecision);
+      const seq = ++requestSeq.current;
+      api
+        .route(text)
+        .then((next) => {
+          if (seq === requestSeq.current) setDecision(next);
+        })
+        .catch((err: unknown) => {
+          if (seq === requestSeq.current) setDecision(null);
+          console.error("routing failed:", err);
+        });
     }, 150);
     return () => {
       if (debounceRef.current !== null) window.clearTimeout(debounceRef.current);

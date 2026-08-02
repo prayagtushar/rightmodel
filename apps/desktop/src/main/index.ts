@@ -20,7 +20,17 @@ function createWindow(): void {
   });
 
   mainWindow.webContents.setWindowOpenHandler(({ url }) => {
-    shell.openExternal(url);
+    // Only hand web URLs to the OS. Anything else (file:, and the various
+    // scheme handlers registered on a desktop) is dropped.
+    let scheme = "";
+    try {
+      scheme = new URL(url).protocol;
+    } catch {
+      return { action: "deny" };
+    }
+    if (scheme === "https:" || scheme === "http:") {
+      void shell.openExternal(url);
+    }
     return { action: "deny" };
   });
 
@@ -37,12 +47,18 @@ function createWindow(): void {
 
 const ptys = registerIpc(() => mainWindow);
 
-app.whenReady().then(() => {
-  createWindow();
-  app.on("activate", () => {
-    if (BrowserWindow.getAllWindows().length === 0) createWindow();
+app
+  .whenReady()
+  .then(() => {
+    createWindow();
+    app.on("activate", () => {
+      if (BrowserWindow.getAllWindows().length === 0) createWindow();
+    });
+  })
+  .catch((err: unknown) => {
+    console.error("failed to start Switchtower:", err);
+    app.quit();
   });
-});
 
 app.on("window-all-closed", () => {
   ptys.killAll();
