@@ -135,7 +135,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for the full workflow.
 
 ## Status
 
-- [x] Routing core: scorer, tier config, decision log, Claude Code adapter, CLI (44 tests)
+- [x] Routing core: scorer, tier config, decision log, Claude Code adapter, CLI (45 tests)
 - [x] Golden set benchmark: 60/60 on the tuning set, rerunnable via `rightmodel bench`
 - [x] Desktop app: live routing chip, override dropdown, embedded pty terminal tabs, onboarding
 - [x] Playwright smoke test against a stub agent

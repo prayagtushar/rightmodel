@@ -38,7 +38,7 @@
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "test": "tsc -p tsconfig.json && vitest run",
     "test:watch": "vitest",
-    "test:coverage": "vitest run --coverage",
+    "test:coverage": "tsc -p tsconfig.json && vitest run --coverage",
     "bench": "node dist/cli.js bench"
   },
   "devDependencies": {

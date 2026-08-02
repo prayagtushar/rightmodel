@@ -27,7 +27,7 @@ apps/desktop     Electron shell: prompt bar, routing chip, pty terminal tabs
 
 ```
 pnpm test                                  everything
-pnpm -F rightmodel test                   core: typecheck plus 44 vitest tests
+pnpm -F rightmodel test                   core: typecheck plus 45 vitest tests
 pnpm -F @rightmodel/desktop typecheck     desktop types
 pnpm -F @rightmodel/desktop test          desktop: builds, then Playwright against a stub agent
 pnpm lint                                  Biome check
