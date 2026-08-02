@@ -5,9 +5,13 @@ on:
     tags:
       - "v*"
 
+permissions:
+  contents: write
+
 jobs:
   build:
     strategy:
+      fail-fast: false
       matrix:
         include:
           - os: macos-latest
@@ -26,14 +30,30 @@ jobs:
         with:
           node-version: 22
           cache: pnpm
-      - run: pnpm install
-      - run: pnpm -F switchtower test
-      - run: pnpm -F switchtower build
-      - run: pnpm -F @switchtower/desktop ${{ matrix.target }}
+      - run: pnpm install --frozen-lockfile
+
+      - name: Typecheck
+        run: pnpm typecheck
+
+      - name: Core tests
+        run: pnpm -F switchtower test
+
+      # The desktop suite gates the artifact this workflow ships, so it has to
+      # run here and not only in ci.yml.
+      - name: Desktop smoke test
+        run: pnpm -F @switchtower/desktop test
+
+      - name: Build core
+        run: pnpm -F switchtower build
+
+      - name: Build installer
+        run: pnpm -F @switchtower/desktop ${{ matrix.target }}
         env:
+          # Builds are unsigned. See the note in README.md.
           CSC_IDENTITY_AUTO_DISCOVERY: "false"
+
       - uses: softprops/action-gh-release@v2
         with:
           files: ${{ matrix.artifact }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          draft: true
+          generate_release_notes: true

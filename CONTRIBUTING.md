@@ -88,4 +88,15 @@ git tag v0.2.0
 git push origin v0.2.0
 ```
 
-The tag triggers `.github/workflows/release.yml`, which runs the test suites and builds the macOS dmg and Windows installer. Keep the tag and both package versions in sync by hand.
+The tag triggers `.github/workflows/release.yml`, which runs the test suites, builds the macOS dmg and Windows installer, and attaches them to a **draft** release. Review it and publish when it looks right.
+
+Publishing the CLI to npm is a separate manual step:
+
+```
+pnpm -F switchtower build
+cd packages/core
+npm publish --dry-run    # check the tarball contains dist/ and nothing else
+npm publish
+```
+
+Keep the git tag and both package versions in sync by hand.
