@@ -52,7 +52,7 @@ jobs:
           # Builds are unsigned. See the note in README.md.
           CSC_IDENTITY_AUTO_DISCOVERY: "false"
 
-      - uses: softprops/action-gh-release@v2
+      - uses: softprops/action-gh-release@v3
         with:
           files: ${{ matrix.artifact }}
           draft: true
